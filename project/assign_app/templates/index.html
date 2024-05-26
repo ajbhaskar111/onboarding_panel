@@ -1,0 +1,131 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block main_content %}
+    
+    <section class="py-5">
+        <div class="container">
+            <h2 class="fw-500 text-uppercase text-center mb-5">Upload your <span class="text_pink">Documents</span></h2>
+            <div class="row">
+                <div class="col-lg-7 col-md-12 col-sm-12 m-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <form class="row g-3 needs-validation" novalidate method="post" action="{% url 'main_page' %}" >
+                                {% csrf_token %}
+                                <div class="col-md-12">
+                                    <label for="validationCustom01" class="form-label">Select your Country</label>
+                                    <select class="form-select" aria-label="Default select example" name="country_select" >
+                                      <!-- <option selected disabled value="0">-----country-----</option> -->
+                                        {% for k in country_list %}
+                                            <option value="{{k.id}}" >{{k}}</option>
+                                        {% endfor %}
+                                    </select>
+                                  <div class="valid-feedback">
+                                    Looks good!
+                                  </div>
+                                </div>
+                                <div class="col-12 text-center mt-4 ">
+                                  <button class="btn btn-light w-100" type="submit">Search Document</button>
+                                </div>
+                                <div class="col-md-12">
+                                  <label for="validationCustom01" class="form-label">Select Country wise Documents</label>
+                                  <select class="form-select" aria-label="Default select example" name="document_flter" >
+                                    {% for list_douc in document_filter %} 
+                                      <option value="{{list_douc}}">{{list_douc}}</option>
+                                    {% endfor %}
+                                  </select>
+                                  
+                                </div>
+                                <div class="col-12 text-center mt-4 ">
+                                  <button class="btn btn-light w-100" type="submit">Show Document Side</button>
+                                </div>
+                                <div class="col-md-12">
+                                  <label for="validationCustom01" class="form-label">Backed Side</label> 
+                                  <div class="row">
+                                      <div class="col-lg-12 col-md-12 col-sm-12">
+                                          <div class="row"> 
+                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                              <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="no" name="radio" id="no">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                  No
+                                                </label>
+
+                                            </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                              {% if document_filter.Has_backside == 0 %}
+                                              <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="no" name="radio" id="no">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                  No
+                                                </label>
+                                              </div>
+                                              {% else %}
+                                                {% for back_side in back_show %} 
+                                                  <div class="form-check">
+                                                  <input class="form-check-input" type="radio" value="{{back_side.Has_backside}}" name="radio" id="{{back_side.Has_backside}}">
+                                                  <label class="form-check-label" for="flexRadioDefault1">
+                                                    {{back_side.Has_backside}}
+                                                  </label>
+                                                </div>
+                                                {% endfor %}
+                                              {% endif %}
+                                            </div>
+                                          </div>
+                                      </div>  
+                                      <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                      </div>
+                                  </div>
+                                  
+                             
+                                
+                              </form>
+                              <div>
+
+                              <form class="row g-3 mt-4" action="{% url 'upload_and_analyze_image' %}" method="post" enctype="multipart/form-data">
+                                 {% csrf_token %}
+                                <div class="col-md-12 mb-3">
+                                  <label for="formFile" class="form-label mb-3">Upload Document Front End side</label>
+                                  <input class="form-control" type="file" id="formFile" name="image">
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                  <div id="textboxes" style="display: none">
+                                    <label for="formFilebacl" class="form-label mb-3">Upload Document Back End side</label>
+                                    <input class="form-control" type="file" id="formFileback">
+                                  </div>
+                                </div>
+                                <div class="col-md-12 ">
+                                  <button class="btn btn-pink w-100" type="submit">Upload Document</button>
+                                </div>
+                               
+                                
+
+                              </form>
+                              </div>
+                               
+                        </div>
+                    </div>
+                </div>
+            </div>  
+           
+        </div>
+
+    </section>
+    
+{% endblock main_content %}
+{% block script_section %}
+<script>
+$(function() {
+    $('input[name="radio"]').on('click', function() {
+        if ($(this).val() == 'yes') {
+            $('#textboxes').show();
+        }
+        else {
+            $('#textboxes').hide();
+        }
+    });
+});
+</script>
+
+{% endblock script_section %}

@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block main_content %}
+<h2>Uploaded Image</h2>
+<img src="{{ uploaded_file_url }}" alt="Uploaded Image">
+
+<h2>Analysis Results</h2>
+<ul>
+    {% for label in labels %}
+        <li>{{ label }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock main_content %}
+{% block script_section %}
+
+{% endblock script_section %}

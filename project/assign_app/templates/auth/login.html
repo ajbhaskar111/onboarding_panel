@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+{% block main_content %}
+    <div class="container py-5 ">
+        <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12 card m-auto d-flex align-items-center border-0 shadow py-5">
+                    <div class="card-body w-75">
+                        <h3 class="text-center text_pink mb-4 text-uppercase">Login</h3>  
+                        <form action="{% url 'login' %}" method="post" >
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+                              </div>
+                              <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                              </div>
+                              <div class="row mt-5">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <button type="submit" class="btn btn-pink w-100">Submit</button>
+                                    </div>
+                              </div>
+                        </form> 
+                    </div>
+                            
+                </div> 
+        </div>
+    </div>
+{% endblock main_content %}
